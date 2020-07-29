@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Node } from './Node';
 import { NodeWindow } from './NodeWindow';
 import styles from './Board.module.css';
+import { useDrop } from 'react-dnd';
 
 export type NodeProps = {
   name: string;
@@ -14,10 +15,20 @@ export type NodeProps = {
   yPosition: number;
 };
 
+type DragItem = {
+  type: ItemTypes.NODE;
+  node: NodeProps;
+};
+
+export enum ItemTypes {
+  NODE = 'node',
+}
+
 export function Board() {
   const [nodes, setNodes] = useState<NodeProps[]>([]);
   const [, setNodeNumber] = useState(0);
   const [activeNode, setActiveNode] = useState<NodeProps>();
+
   //   const onSaveXMLClick = useCallback();
   const updateNodes = useCallback((oldNode: NodeProps, newNode?: NodeProps) => {
     setNodes((oldNodes) => {
@@ -27,6 +38,7 @@ export function Board() {
     });
     setActiveNode(undefined);
   }, []);
+
   const onNewNodeClick = useCallback(() => {
     setNodeNumber((n) => {
       setNodes((x) => [
@@ -45,8 +57,21 @@ export function Board() {
       return n + 1;
     });
   }, []);
+
+  const [, drop] = useDrop({
+    accept: ItemTypes.NODE,
+    drop: (item: DragItem, monitor) => {
+      const newNode = {
+        ...item.node,
+        xPosition: monitor.getSourceClientOffset()!.x,
+        yPosition: monitor.getSourceClientOffset()!.y,
+      };
+      updateNodes(item.node, newNode);
+    },
+  });
+
   return (
-    <div className={styles.board}>
+    <div className={styles.board} ref={drop}>
       <div className={styles.sidebox}>
         <h1>TopologyCreator</h1>
         {activeNode && (
@@ -63,8 +88,8 @@ export function Board() {
         </button>
         <button className={styles.navButton}>Save as XML</button>
       </nav>
-      {nodes.map((node) => (
-        <Node node={node} setActiveNode={setActiveNode} />
+      {nodes.map((node, index) => (
+        <Node node={node} key={index} setActiveNode={setActiveNode} />
       ))}
     </div>
   );
