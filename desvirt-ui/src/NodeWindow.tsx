@@ -21,6 +21,12 @@ export class NodeWindow extends React.Component<Props> {
     binaryFilename: this.props.node.binaryFilename,
   };
 
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.node !== this.props.node) {
+      const { xPosition, yPosition, ...newNode } = this.props.node;
+      this.setState(newNode);
+    }
+  }
   setNumberstate = (
     key: 'noisefloor' | 'sensitivityOffset' | 'txPower',
     input: string
