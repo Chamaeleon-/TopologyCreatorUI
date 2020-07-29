@@ -1,0 +1,28 @@
+.buttonRow {
+  position: absolute;
+  padding: 1em;
+}
+.navButton {
+  margin-right: 1em;
+  background-color: #404753;
+  color: aliceblue;
+  border-color: black;
+}
+
+.board {
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
+}
+
+h1 {
+  color: aliceblue;
+}
+
+.sidebox {
+  position: absolute;
+  width: 18em;
+  margin-right: 1em;
+  top: 0;
+  right: 0;
+}

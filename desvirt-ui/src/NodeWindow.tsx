@@ -1,6 +1,7 @@
 import React from 'react';
 import { NodeProps } from './Board';
 import { isNumber } from 'util';
+import styles from './NodeWindow.module.css';
 
 type Props = {
   node: NodeProps;
@@ -10,7 +11,7 @@ type Props = {
 
 type State = Omit<NodeProps, 'xPosition' | 'yPosition'>;
 
-export class EditNodeProperties extends React.Component<Props> {
+export class NodeWindow extends React.Component<Props> {
   state = {
     name: this.props.node.name,
     noisefloor: this.props.node.noisefloor,
@@ -42,8 +43,8 @@ export class EditNodeProperties extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        <h3>Node: {this.state.name}</h3>
+      <div className={styles.nodeWindow}>
+        <h3 className="nodeTitle">Node: {this.state.name}</h3>
         <form onSubmit={this.handleSubmit}>
           <label>
             Choose new Name:
@@ -101,12 +102,15 @@ export class EditNodeProperties extends React.Component<Props> {
               }
             />
           </label>
-          <input type="submit" value="Submit" />
-          <input
-            type="button"
-            value="Cancel"
-            onClick={() => this.props.unsetActiveNode()}
-          />
+          <div className={styles.buttonContainer}>
+            <input
+              className={styles.cancel}
+              type="button"
+              value="Cancel"
+              onClick={() => this.props.unsetActiveNode()}
+            />
+            <input type="submit" value="Submit" />
+          </div>
         </form>
       </div>
     );

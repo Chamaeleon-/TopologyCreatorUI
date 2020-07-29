@@ -1,0 +1,34 @@
+.nodeWindow {
+  background-color: #404753;
+  padding: 1em;
+  border-radius: 2%;
+  /* height: 20em; */
+}
+
+label {
+  display: inline-block;
+}
+
+input[type='text'],
+input[type='number'] {
+  margin: 1em;
+  margin-left: 0em;
+  width: 15em;
+}
+
+input[type='submit'] {
+  background-color: #282c34;
+  border-color: black;
+  color: aliceblue;
+}
+
+.cancel {
+  background-color: #282c34;
+  border-color: black;
+  color: aliceblue;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+}

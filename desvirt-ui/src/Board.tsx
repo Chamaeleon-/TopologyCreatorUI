@@ -1,8 +1,8 @@
 import React from 'react';
 import { type } from 'os';
 import { Node } from './Node';
-import { render } from '@testing-library/react';
-import { EditNodeProperties } from './NodeWindow';
+import { NodeWindow } from './NodeWindow';
+import styles from './Board.module.css';
 
 export type NodeProps = {
   name: string;
