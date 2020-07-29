@@ -1,26 +1,20 @@
-import React from 'react';
-import { Board, NodeProps } from './Board';
+import React, { useCallback } from 'react';
+import { NodeProps } from './Board';
 import styles from './Node.module.css';
 
 type Props = {
   node: NodeProps;
   setActiveNode: (n?: NodeProps) => void;
 };
-export class Node extends React.Component<Props> {
-  render() {
-    return (
-      <div
-        className={styles.node}
-        onClick={this.onClick}
-        onMouseOver={this.onMouseOver}
-      ></div>
-    );
-  }
-  onMouseOver = () => {
-    // TODO show name
+export function Node({ node, setActiveNode }: Props) {
+  const onClick = useCallback(() => setActiveNode(node), [node, setActiveNode]);
+  const diffPosition = {
+    left: `${node.xPosition}px`,
+    top: `${node.yPosition}px`,
   };
-  onClick = () => {
-    //open node window
-    this.props.setActiveNode(this.props.node);
-  };
+  return (
+    <div className={styles.node} onClick={onClick} style={diffPosition}>
+      <span className={styles.tooltiptext}>{node.name}</span>
+    </div>
+  );
 }
