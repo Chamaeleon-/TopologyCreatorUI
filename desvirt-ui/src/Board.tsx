@@ -3,6 +3,7 @@ import { Node } from './Node';
 import { NodeWindow } from './NodeWindow';
 import styles from './Board.module.css';
 import { useDrop } from 'react-dnd';
+import { generateXML } from './Export';
 
 export type NodeProps = {
   name: string;
@@ -29,7 +30,10 @@ export function Board() {
   const [, setNodeNumber] = useState(0);
   const [activeNode, setActiveNode] = useState<NodeProps>();
 
-  //   const onSaveXMLClick = useCallback();
+  const onSaveXMLClick = useCallback(() => {
+    generateXML(nodes, 1);
+  }, [nodes]);
+
   const updateNodes = useCallback((oldNode: NodeProps, newNode?: NodeProps) => {
     setNodes((oldNodes) => {
       const newNodes = oldNodes.filter((n) => n !== oldNode);
@@ -86,7 +90,9 @@ export function Board() {
         <button className={styles.navButton} onClick={onNewNodeClick}>
           New Node
         </button>
-        <button className={styles.navButton}>Save as XML</button>
+        <button className={styles.navButton} onClick={onSaveXMLClick}>
+          Save as XML
+        </button>
       </nav>
       {nodes.map((node, index) => (
         <Node node={node} key={index} setActiveNode={setActiveNode} />
