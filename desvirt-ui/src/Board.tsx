@@ -29,10 +29,22 @@ export function Board() {
   const [nodes, setNodes] = useState<NodeProps[]>([]);
   const [, setNodeNumber] = useState(0);
   const [activeNode, setActiveNode] = useState<NodeProps>();
+  const [scale, setScale] = useState(1);
 
+  const onChangeScale = useCallback(() => {
+    const newScale = window.prompt(
+      'Set new Scale: 100px = ? meter',
+      scale.toString()
+    );
+    const number = Number.parseFloat(newScale || '');
+    if (Number.isNaN(number)) {
+      return;
+    }
+    setScale(number);
+  }, [scale]);
   const onSaveXMLClick = useCallback(() => {
-    generateXML(nodes, 1);
-  }, [nodes]);
+    generateXML(nodes, scale);
+  }, [nodes, scale]);
 
   const updateNodes = useCallback((oldNode: NodeProps, newNode?: NodeProps) => {
     setNodes((oldNodes) => {
@@ -90,9 +102,13 @@ export function Board() {
         <button className={styles.navButton} onClick={onNewNodeClick}>
           New Node
         </button>
+        <button className={styles.navButton}>Create Grid</button>
         <button className={styles.navButton} onClick={onSaveXMLClick}>
           Save as XML
         </button>
+        <div className={styles.scale} onClick={onChangeScale}>
+          {scale} meter
+        </div>
       </nav>
       {nodes.map((node, index) => (
         <Node node={node} key={index} setActiveNode={setActiveNode} />

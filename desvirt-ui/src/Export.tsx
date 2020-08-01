@@ -5,10 +5,12 @@ import prettierXML from '@prettier/plugin-xml';
 
 function distance(node1: NodeProps, node2: NodeProps, scale: number) {
   return (
-    Math.sqrt(
+    (Math.sqrt(
       (node1.xPosition - node2.xPosition) ** 2 +
         (node1.yPosition - node2.yPosition) ** 2
-    ) * scale
+    ) *
+      scale) /
+    100
   );
 }
 
