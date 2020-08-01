@@ -115,6 +115,12 @@ export class NodeWindow extends React.Component<Props> {
               value="Cancel"
               onClick={() => this.props.unsetActiveNode()}
             />
+            <input
+              className={styles.cancel}
+              type="button"
+              value="Delete"
+              onClick={() => this.props.updateNodes(this.props.node)}
+            />
             <input type="submit" value="Submit" />
           </div>
         </form>
