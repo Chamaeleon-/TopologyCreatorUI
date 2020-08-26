@@ -74,6 +74,45 @@ export function Board() {
     });
   }, []);
 
+  const onNewMesh = useCallback(() => {
+    const askedWidth = window.prompt('Mesh width in nodes:');
+    const askedHeight = window.prompt('Mesh height in nodes:');
+    const askedSpace = window.prompt('Space between nodes in meter:');
+    const width = Number.parseFloat(askedWidth || '');
+    if (Number.isNaN(width)) {
+      return;
+    }
+    const height = Number.parseFloat(askedHeight || '');
+    if (Number.isNaN(height)) {
+      return;
+    }
+    const space = Number.parseFloat(askedSpace || '');
+    if (Number.isNaN(space)) {
+      return;
+    }
+    // TODO: catch grids bigger than viewport and alter scale
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
+        setNodeNumber((n) => {
+          setNodes((x) => [
+            ...x,
+            {
+              name: 'Node' + n,
+              noisefloor: -100,
+              sensitivityOffset: 2,
+              txPower: 2,
+              temperatureFilename: './temp',
+              binaryFilename: './gnrc_networking.elf',
+              xPosition: 300 + (100 / scale) * space * i,
+              yPosition: 300 + (100 / scale) * space * j,
+            },
+          ]);
+          return n + 1;
+        });
+      }
+    }
+  }, [scale]);
+
   const [, drop] = useDrop({
     accept: ItemTypes.NODE,
     drop: (item: DragItem, monitor) => {
@@ -102,7 +141,9 @@ export function Board() {
         <button className={styles.navButton} onClick={onNewNodeClick}>
           New Node
         </button>
-        <button className={styles.navButton}>Create Grid</button>
+        <button className={styles.navButton} onClick={onNewMesh}>
+          Create Grid
+        </button>
         <button className={styles.navButton} onClick={onSaveXMLClick}>
           Save as XML
         </button>

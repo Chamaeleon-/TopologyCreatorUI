@@ -1,6 +1,5 @@
 import React from 'react';
 import { NodeProps } from './Board';
-import { isNumber } from 'util';
 import styles from './NodeWindow.module.css';
 
 type Props = {
