@@ -26,5 +26,9 @@ export function NodeLinks({ nodeList, scale }: Props) {
       }
     });
   });
-  return <svg>{svgLines.map((line) => line)}</svg>;
+  return (
+    <svg height="100vh" width="100vw">
+      {svgLines.map((line) => line)}
+    </svg>
+  );
 }
