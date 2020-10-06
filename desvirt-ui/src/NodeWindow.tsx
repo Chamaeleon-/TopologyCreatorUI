@@ -60,7 +60,7 @@ export class NodeWindow extends React.Component<Props> {
             />
           </label>
           <label>
-            Noisefloor:
+            Noisefloor in dBm:
             <input
               type="number"
               step="0.5"
@@ -71,7 +71,7 @@ export class NodeWindow extends React.Component<Props> {
             />
           </label>
           <label>
-            Sensitivity Offset:
+            Sensitivity Offset in dB:
             <input
               type="number"
               step="0.5"
@@ -82,7 +82,7 @@ export class NodeWindow extends React.Component<Props> {
             />
           </label>
           <label>
-            Tx Power:
+            Tx Power in dBm:
             <input
               type="number"
               step="0.5"
