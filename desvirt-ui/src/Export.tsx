@@ -2,7 +2,6 @@ import { NodeProps } from './Board';
 import prettier from 'prettier/standalone';
 // @ts-ignore
 import prettierXML from '@prettier/plugin-xml';
-import React from 'react';
 
 function distance(node1: NodeProps, node2: NodeProps, scale: number) {
   return (
@@ -110,30 +109,4 @@ function save(filename: string, data: string) {
   document.body.appendChild(elem);
   elem.click();
   document.body.removeChild(elem);
-}
-
-export function drawLinks(nodeList: Array<NodeProps>, scale: number) {
-  let svgLines: Array<any> = [];
-  nodeList.forEach((node1, i) => {
-    nodeList.forEach((node2, j) => {
-      if (i !== j && isReachable(node1, node2, scale)) {
-        const newLine = (
-          <line
-            key={node1.name + node2.name}
-            x1={node1.xPosition + 5}
-            y1={node1.yPosition + 5}
-            x2={node2.xPosition + 5}
-            y2={node2.yPosition + 5}
-            stroke="white"
-          />
-        );
-        svgLines.push(newLine);
-      }
-    });
-  });
-  return (
-    <svg width="100vw" height="100vh">
-      {svgLines.map((line) => line)}
-    </svg>
-  );
 }

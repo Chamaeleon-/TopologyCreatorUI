@@ -30,7 +30,7 @@ export class NodeWindow extends React.Component<Props> {
     key: 'noisefloor' | 'sensitivityOffset' | 'txPower',
     input: string
   ) => {
-    const number = Number.parseInt(input);
+    const number = Number.parseFloat(input);
     if (Number.isNaN(number)) {
       return;
     }
@@ -63,6 +63,7 @@ export class NodeWindow extends React.Component<Props> {
             Noisefloor:
             <input
               type="number"
+              step="0.5"
               value={this.state.noisefloor}
               onChange={(e) =>
                 this.setNumberstate('noisefloor', e.target.value)
@@ -73,6 +74,7 @@ export class NodeWindow extends React.Component<Props> {
             Sensitivity Offset:
             <input
               type="number"
+              step="0.5"
               value={this.state.sensitivityOffset}
               onChange={(e) =>
                 this.setNumberstate('sensitivityOffset', e.target.value)
@@ -83,6 +85,7 @@ export class NodeWindow extends React.Component<Props> {
             Tx Power:
             <input
               type="number"
+              step="0.5"
               value={this.state.txPower}
               onChange={(e) => this.setNumberstate('txPower', e.target.value)}
             />

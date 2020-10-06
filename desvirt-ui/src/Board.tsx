@@ -3,7 +3,8 @@ import { Node } from './Node';
 import { NodeWindow } from './NodeWindow';
 import styles from './Board.module.css';
 import { useDrop } from 'react-dnd';
-import { generateXML, drawLinks } from './Export';
+import { generateXML } from './Export';
+import { NodeLinks } from './NodeLinks';
 
 export type NodeProps = {
   name: string;
@@ -70,10 +71,9 @@ export function Board() {
           yPosition: 300 + 100 * Math.random(),
         },
       ]);
-      drawLinks(nodes, scale);
       return n + 1;
     });
-  }, [nodes, scale]);
+  }, []);
 
   const onNewMesh = useCallback(() => {
     const askedWidth = window.prompt('Mesh width in nodes:');
@@ -155,6 +155,7 @@ export function Board() {
       {nodes.map((node, index) => (
         <Node node={node} key={index} setActiveNode={setActiveNode} />
       ))}
+      <NodeLinks nodeList={nodes} scale={scale}></NodeLinks>
     </div>
   );
 }
