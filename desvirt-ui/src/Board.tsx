@@ -3,7 +3,7 @@ import { Node } from './Node';
 import { NodeWindow } from './NodeWindow';
 import styles from './Board.module.css';
 import { useDrop } from 'react-dnd';
-import { generateXML } from './Export';
+import { generateXML, drawLinks } from './Export';
 
 export type NodeProps = {
   name: string;
@@ -70,9 +70,10 @@ export function Board() {
           yPosition: 300 + 100 * Math.random(),
         },
       ]);
+      drawLinks(nodes, scale);
       return n + 1;
     });
-  }, []);
+  }, [nodes, scale]);
 
   const onNewMesh = useCallback(() => {
     const askedWidth = window.prompt('Mesh width in nodes:');
