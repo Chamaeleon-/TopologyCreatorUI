@@ -4,6 +4,7 @@ import { NodeWindow } from './NodeWindow';
 import styles from './Board.module.css';
 import { useDrop } from 'react-dnd';
 import { generateXML } from './Export';
+import { NodeLinks } from './NodeLinks';
 
 export type NodeProps = {
   name: string;
@@ -154,6 +155,7 @@ export function Board() {
       {nodes.map((node, index) => (
         <Node node={node} key={index} setActiveNode={setActiveNode} />
       ))}
+      <NodeLinks nodeList={nodes} scale={scale}></NodeLinks>
     </div>
   );
 }
